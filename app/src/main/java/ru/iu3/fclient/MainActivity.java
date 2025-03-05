@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         int res = initRng();
         byte[] v = randomBytes(10);
 
-        byte[] key = "ключ".getBytes();
+        byte[] key = randomBytes(16);
         byte[] encryptedData = encrypt(key, v);
         byte[] decryptData = decrypt(key, encryptedData);
 
