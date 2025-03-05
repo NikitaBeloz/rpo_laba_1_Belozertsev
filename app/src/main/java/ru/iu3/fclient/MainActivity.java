@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         int res = initRng();
         byte[] v = randomBytes(10);
 
+        byte[] key = "ключ".getBytes();
+        byte[] encryptedData = encrypt(key, v);
+        byte[] decryptData = decrypt(key, encryptedData);
+
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
 
@@ -43,4 +47,8 @@ public class MainActivity extends AppCompatActivity {
     public native String stringFromJNI();
     public static native int initRng();
     public static native byte[] randomBytes(int no);
+
+    public static native byte[] encrypt(byte[] key, byte[] data);
+
+    public static native byte[] decrypt(byte[] key, byte[] data);
 }
