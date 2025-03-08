@@ -3,7 +3,12 @@ package ru.iu3.fclient;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 
 import ru.iu3.fclient.databinding.ActivityMainBinding;
 
@@ -29,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         byte[] encryptedData = encrypt(key, v);
         byte[] decryptData = decrypt(key, encryptedData);
 
-        TextView tv = findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
-
+//        TextView tv = findViewById(R.id.sample_text);
+//        tv.setText(stringFromJNI());
+        Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        setContentView(binding.getRoot());
 //
@@ -51,4 +56,23 @@ public class MainActivity extends AppCompatActivity {
     public static native byte[] encrypt(byte[] key, byte[] data);
 
     public static native byte[] decrypt(byte[] key, byte[] data);
+
+    public static byte[] stringToHex(String s)
+    {
+        byte[] hex;
+        try
+        {
+            hex = Hex.decodeHex(s.toCharArray());
+        }
+        catch (DecoderException ex)
+        {
+            hex = null;
+        }
+        return hex;
+    }
+
+    public void onButtonClick(View v)
+    {
+        Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
+    }
 }
