@@ -2,6 +2,7 @@ package ru.iu3.fclient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -73,10 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonClick(View v)
     {
-        byte[] key = stringToHex("0123456789ABCDEF0123456789ABCDE0");
-        byte[] enc = encrypt(key, stringToHex("000000000000000102"));
-        byte[] dec = decrypt(key, enc);
-        String s = new String(Hex.encodeHex(dec)).toUpperCase();
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+//        byte[] key = stringToHex("0123456789ABCDEF0123456789ABCDE0");
+//        byte[] enc = encrypt(key, stringToHex("000000000000000102"));
+//        byte[] dec = decrypt(key, enc);
+//        String s = new String(Hex.encodeHex(dec)).toUpperCase();
+//        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+
+        Intent it = new Intent(this, PinpadActivity.class);
+        startActivity(it);
     }
 }
