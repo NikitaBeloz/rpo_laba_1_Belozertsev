@@ -1,7 +1,12 @@
 package ru.iu3.fclient;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +19,8 @@ import org.apache.commons.codec.binary.Hex;
 import ru.iu3.fclient.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    ActivityResultLauncher activityResultLauncher;
 
     // Used to load the 'fclient' library on application startup.
     static {
@@ -44,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
 //        // Example of a call to a native method
 //        TextView tv = binding.sampleText;
 //        tv.setText(stringFromJNI());
+
+        activityResultLauncher  = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        String pin = data.getStringExtra("pin");
+                        Toast.makeText(MainActivity.this, pin, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
@@ -74,13 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonClick(View v)
     {
-//        byte[] key = stringToHex("0123456789ABCDEF0123456789ABCDE0");
-//        byte[] enc = encrypt(key, stringToHex("000000000000000102"));
-//        byte[] dec = decrypt(key, enc);
-//        String s = new String(Hex.encodeHex(dec)).toUpperCase();
-//        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-
         Intent it = new Intent(this, PinpadActivity.class);
-        startActivity(it);
+        //startActivity(it);
+        activityResultLauncher.launch(it);
     }
 }
